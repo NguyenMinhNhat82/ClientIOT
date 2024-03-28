@@ -1,0 +1,109 @@
+{
+  "name": "@minimal/material-kit-react",
+  "author": "minimals.cc",
+  "licence": "MIT",
+  "version": "1.7.0",
+  "private": false,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .js,.jsx ./src",
+    "lint:fix": "eslint --fix --ext .js,.jsx ./src",
+    "clear-all": "rm -rf build node_modules",
+    "re-start": "rm -rf build node_modules && yarn install && yarn start",
+    "re-build": "rm -rf build node_modules && yarn install && yarn build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@canvasjs/react-charts": "^1.0.0",
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/react": "^2.8.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@iconify/react": "^4.1.0",
+    "@mui/lab": "^5.0.0-alpha.103",
+    "@mui/material": "^5.14.12",
+    "@mui/x-data-grid": "^6.19.6",
+    "apexcharts": "^3.37.0",
+    "axios": "^1.5.0",
+    "bootstrap": "^5.3.3",
+    "change-case": "^4.1.2",
+    "chart.js": "^4.4.0",
+    "date-fns": "^2.29.3",
+    "fake": "^0.2.2",
+    "faker": "^6.6.6",
+    "history": "^5.3.0",
+    "js-cookie": "^3.0.5",
+    "lodash": "^4.17.21",
+    "mdb-react-ui-kit": "^6.3.0",
+    "net": "^1.0.2",
+    "numeral": "^2.0.6",
+    "popups": "^1.1.3",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.4.0",
+    "react-bootstrap": "^2.10.2",
+    "react-chartjs-2": "^5.2.0",
+    "react-cookies": "^0.1.1",
+    "react-dom": "^18.2.0",
+    "react-environment-chart": "^0.1.7",
+    "react-gauge-component": "^1.1.20",
+    "react-google-charts": "^4.0.1",
+    "react-helmet-async": "^1.3.0",
+    "react-hook-form": "^7.43.1",
+    "react-hooks-global-state": "^2.1.0",
+    "react-icons": "^4.11.0",
+    "react-otp-input": "^3.1.0",
+    "react-router-dom": "^6.8.1",
+    "react-scripts": "^5.0.1",
+    "reactjs-popup": "^2.0.6",
+    "simplebar-react": "^3.2.1",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
+    "styled-components": "^6.0.8",
+    "vercel": "^33.6.1",
+    "web-vitals": "^3.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/eslint-parser": "^7.19.1",
+    "@faker-js/faker": "^8.0.2",
+    "eslint": "^8.34.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.4"
+  },
+  "overrides": {
+    "nth-check": "2.1.1"
+  }
+}
