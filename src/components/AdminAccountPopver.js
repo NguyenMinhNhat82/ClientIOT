@@ -16,17 +16,9 @@ import account from '../_mock/account';
 
 const MENU_OPTIONS = [
   {
-    label: 'Home',
-    icon: 'eva:home-fill',
-  },
-  {
-    label: 'Profile',
-    icon: 'eva:person-fill',
-  },
-  {
-    label: 'Settings',
-    icon: 'eva:settings-2-fill',
-  },
+    // label: 'Home',
+    // icon: 'eva:home-fill',
+  }
 ];
 
 // ----------------------------------------------------------------------
@@ -43,11 +35,6 @@ export default function AdminAccountPopover() {
 
   const handleClose = () => {
     setOpen(null);
-    dispatch({
-      "type": "logout"
-    }
-    )
-    navigate('/login');
   };
 
   if (user == null){
@@ -120,7 +107,13 @@ export default function AdminAccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={() =>{
+          dispatch({
+            "type": "logout"
+          }
+          )
+          navigate('/login');
+        }} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </Popover>

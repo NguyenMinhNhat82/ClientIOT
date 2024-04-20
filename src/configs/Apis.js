@@ -1,7 +1,7 @@
 import axios from 'axios';
 import cookie from 'react-cookies';
 
-const SERVER = 'http://localhost:9000';
+const SERVER = 'https://serveriot-ajh8.onrender.com';
 
 export const endpoints = {
   login: '/authenticate',
@@ -23,7 +23,17 @@ export const endpoints = {
   deletUser:"/api/user/delete",
   getUser:"/api/user",
   editUser :"/api/user/edit-user",
-  createUser:"/api/user/create-user"
+  createUser:"/api/user/create-user",
+  stationInfo:"/api/staion-info",
+  listSensor: "/api/station/sensor",
+  valueSensor1Hour:"/api/value-sensor-1h",
+  valueSensor1Day:"/api/value-sensor-1d",
+  valueSensor1Week:"/api/value-sensor-1w",
+  valueSensor1Month:"/api/value-sensor-1m",
+  valueMinMax:"/api/min-max-value"
+
+
+
 };
 export const authApi = () => {
   return axios.create({

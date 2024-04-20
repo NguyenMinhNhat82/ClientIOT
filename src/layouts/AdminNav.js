@@ -53,11 +53,11 @@ export default function AdminNav({ openNav, onCloseNav }) {
       path: '/dashboard/app',
       icon: icon('ic_analytics'),
     },
-    {
-      title: 'dashboard',
-      path: '/dashboard/app',
-      icon: icon('ic_analytics'),
-    }
+    // {
+    //   title: 'dashboard',
+    //   path: '/dashboard/app',
+    //   icon: icon('ic_analytics'),
+    // }
 
 
 
