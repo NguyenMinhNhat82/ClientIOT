@@ -5,7 +5,6 @@ import cookie from 'react-cookies';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
-import CanvasJSReact from '@canvasjs/react-charts';
 import { toInteger } from 'lodash';
 import Apis, { endpoints } from '../configs/Apis';
 import Button from '../theme/overrides/Button';
@@ -28,8 +27,6 @@ import {
 import Expired from './Expired';
 import MySpinner from '../layouts/Spinner';
 
-const CanvasJS = CanvasJSReact.CanvasJS;
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 // sections
 
 // ----------------------------------------------------------------------

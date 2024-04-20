@@ -4,7 +4,6 @@ import GaugeComponent from 'react-gauge-component';
 import { Col, Row, Table } from 'react-bootstrap';
 import { Flex } from '@chakra-ui/react';
 import React, { Component, useContext, useEffect, useState } from 'react';
-import CanvasJSReact from '@canvasjs/react-charts';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { set, toInteger } from 'lodash';
@@ -18,8 +17,6 @@ import CurrentContent from '../components/CurrentContent';
 import MinMax from '../components/MinMax';
 import MySpinner from '../layouts/Spinner';
 
-const CanvasJS = CanvasJSReact.CanvasJS;
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const indexPage = {
   backgroundColor: '#F0EEEE',
   padding: '10px',

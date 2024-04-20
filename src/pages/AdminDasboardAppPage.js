@@ -7,7 +7,6 @@ import cookie from 'react-cookies';
 import {  Form } from "react-bootstrap";
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, Button, Stack, TextField, listItemTextClasses } from '@mui/material';
-import CanvasJSReact from '@canvasjs/react-charts';
 import { toInteger } from 'lodash';
 import { DataGrid } from '@mui/x-data-grid';
 import Apis, { endpoints } from '../configs/Apis';
@@ -35,8 +34,6 @@ import ExpiredAdmin from './ExpiredAdmin';
 
 
 
-const CanvasJS = CanvasJSReact.CanvasJS;
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 // sections
 
 // ----------------------------------------------------------------------
