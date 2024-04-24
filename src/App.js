@@ -48,7 +48,7 @@ export default function App() {
     stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
   }
   React.useEffect(() => {
-    const Sock = new SockJS('https://serveriot-ajh8.onrender.com/ws');
+    const Sock = new SockJS('https://serveriot-1.onrender.com/ws');
     stompClient = over(Sock);
     stompClient.connect({}, () => {
       stompClient.subscribe('/user/client/private', onPrivateMessage);
