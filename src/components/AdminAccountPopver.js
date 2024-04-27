@@ -42,7 +42,7 @@ export default function AdminAccountPopover() {
       "type": "logout"
     }
     )
-    return <Navigate to="/login" />
+    return <Navigate to="/admin/login" />
   }
     
   return (
@@ -112,7 +112,7 @@ export default function AdminAccountPopover() {
             "type": "logout"
           }
           )
-          navigate('/login');
+          navigate('/admin/login');
         }} sx={{ m: 1 }}>
           Logout
         </MenuItem>

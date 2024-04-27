@@ -16,6 +16,8 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboardAppPage from './pages/AdminDasboardAppPage';
 import EditUser from './pages/EditUser';
 import AddUser from './pages/AddUser';
+import StatisticalReports from './pages/StatisticalReports';
+import StationReport from './pages/StationReport';
 
 // ----------------------------------------------------------------------
 
@@ -67,6 +69,8 @@ Router() {
         { path: "home" ,element: <AdminDashboardAppPage/>, index : true },
         {path :"user/:id", element: <EditUser/>},
         {path :"user/add", element: <AddUser/>},
+        {path :"report", element: <StatisticalReports/>},
+        {path :"report/:id", element: <StationReport/>},
       ],
     }
   ]);

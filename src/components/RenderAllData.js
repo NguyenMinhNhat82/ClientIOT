@@ -4,6 +4,7 @@ import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, X
 import { setGlobalState, useGlobalState } from "..";
 import Apis, { endpoints } from "../configs/Apis";
 import MySpinner from "../layouts/Spinner";
+import ExpiredAdmin from "../pages/ExpiredAdmin";
 
 export default function RenderAllData(id) {
 
@@ -33,7 +34,7 @@ export default function RenderAllData(id) {
                     },
                 });
                 
-                if (res === '') {
+                if (res.data === '') {
                     setGlobalState('isAuthorized', false);
                 } else {
                     for (let i = 0; i < res.data.length; i += 1) {
@@ -54,7 +55,7 @@ export default function RenderAllData(id) {
                     },
                 });
 
-                if (res === '') {
+                if (res.data === '') {
                     setGlobalState('isAuthorized', false);
                 } else {
                     for (let i = 0; i < res.data.length; i += 1) {
@@ -74,7 +75,7 @@ export default function RenderAllData(id) {
                         Authorization: `Bearer ${cookie.load('token')}`,
                     },
                 });
-                if (res === '') {
+                if (res.data === '') {
                     setGlobalState('isAuthorized', false);
                 } else {
                     for (let i = 0; i < res.data.length; i += 1) {
@@ -94,7 +95,7 @@ export default function RenderAllData(id) {
                         Authorization: `Bearer ${cookie.load('token')}`,
                     },
                 });
-                if (res === '') {
+                if (res.data === '') {
                     setGlobalState('isAuthorized', false);
                 } else {
                     for (let i = 0; i < res.data.length; i += 1) {
@@ -115,6 +116,15 @@ export default function RenderAllData(id) {
         loadData();
 
     }, [listener, id])
+
+    const isAuthorized = useGlobalState('isAuthorized')[0];
+    if (isAuthorized === false) {
+        return (
+            <>
+                <ExpiredAdmin />
+            </>
+        );
+    }
     if(data1Hour == null || data1Day == null || data1Week == null || data1Month == null){
         return(<>
         <div className="text-center">
@@ -152,7 +162,7 @@ export default function RenderAllData(id) {
                     <YAxis />
                     <Legend />
                     <Tooltip />
-                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} />
+                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} dot = {false} />
                 </LineChart>
             </ResponsiveContainer>
             <br />
@@ -166,7 +176,7 @@ export default function RenderAllData(id) {
                     <YAxis />
                     <Legend />
                     <Tooltip />
-                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} />
+                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} dot = {false} />
                 </LineChart>
             </ResponsiveContainer>
             <br />
@@ -180,7 +190,7 @@ export default function RenderAllData(id) {
                     <YAxis />
                     <Legend />
                     <Tooltip />
-                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} />
+                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} dot ={false} />
                 </LineChart>
             </ResponsiveContainer>
         </>

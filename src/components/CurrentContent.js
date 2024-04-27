@@ -3,6 +3,7 @@ import cookie from 'react-cookies';
 import { setGlobalState, useGlobalState } from "..";
 import MySpinner from "../layouts/Spinner";
 import Apis, { endpoints } from "../configs/Apis";
+import ExpiredAdmin from "../pages/ExpiredAdmin";
 
 
 export default function CurrentContent(id) {
@@ -64,13 +65,14 @@ export default function CurrentContent(id) {
                     Authorization: `Bearer ${cookie.load('token')}`,
                 },
             });
-            if (resTemp === '') {
+            if (resTemp.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
                 setTemp(resTemp.data);
                 setNameValue(`Nhiệt độ ${resTemp.data[0].sensor.id.split("_")[1]}`);
                 setIndexValue(resTemp.data[0].value)
             }
+            
 
 
             // setIndexValue(temp[0].value)
@@ -81,7 +83,7 @@ export default function CurrentContent(id) {
                     Authorization: `Bearer ${cookie.load('token')}`,
                 },
             });
-            if (resHumi === '') {
+            if (resHumi.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
                 setHumi(resHumi.data);
@@ -93,7 +95,7 @@ export default function CurrentContent(id) {
                     Authorization: `Bearer ${cookie.load('token')}`,
                 },
             });
-            if (resPH === '') {
+            if (resPH.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
                 setPH(resPH.data);
@@ -105,7 +107,7 @@ export default function CurrentContent(id) {
                     Authorization: `Bearer ${cookie.load('token')}`,
                 },
             });
-            if (resEC === '') {
+            if (resEC.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
                 setEC(resEC.data);
@@ -118,7 +120,7 @@ export default function CurrentContent(id) {
                 },
             });
 
-            if (resKali === '') {
+            if (resKali.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
                 setKali(resKali.data);
@@ -130,7 +132,7 @@ export default function CurrentContent(id) {
                     Authorization: `Bearer ${cookie.load('token')}`,
                 },
             });
-            if (resNito === '') {
+            if (resNito.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
                 setNito(resNito.data);
@@ -141,7 +143,7 @@ export default function CurrentContent(id) {
                     Authorization: `Bearer ${cookie.load('token')}`,
                 },
             });
-            if (resPhotpho === '') {
+            if (resPhotpho.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
                 setPhotpho(resPhotpho.data);
@@ -151,6 +153,16 @@ export default function CurrentContent(id) {
         loadData();
 
     }, [listener])
+
+    const isAuthorized = useGlobalState('isAuthorized')[0];
+    if (isAuthorized === false) {
+        return (
+            <>
+                <ExpiredAdmin />
+            </>
+        );
+    }
+    
     if (temp == null || humi == null || ph == null || ec == null || kali == null || photpho == null
         || nito == null)
         return (<>

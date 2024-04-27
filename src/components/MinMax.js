@@ -4,6 +4,7 @@ import { setGlobalState, useGlobalState } from "..";
 import Apis, { endpoints } from "../configs/Apis";
 import MySpinner from "../layouts/Spinner";
 import RenderAllData from "./RenderAllData";
+import ExpiredAdmin from "../pages/ExpiredAdmin";
 
 export default function MinMax(id) {
     const [sensor, setSensor] = useState();
@@ -41,7 +42,11 @@ export default function MinMax(id) {
                     Authorization: `Bearer ${cookie.load('token')}`,
                 },
             });
-            setMinMax(resMinMax.data)
+            if (resMinMax.data === '') {
+                setGlobalState('isAuthorized', false);
+            } else {
+                setMinMax(resMinMax.data);
+            }
         }
         loadDataMinMax();
     };
@@ -67,7 +72,7 @@ export default function MinMax(id) {
                 },
             });
 
-            if (resMinMax === '') {
+            if (resMinMax.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
                 setMinMax(resMinMax.data);
@@ -77,6 +82,16 @@ export default function MinMax(id) {
 
     }
         , [listener])
+
+
+    const isAuthorized = useGlobalState('isAuthorized')[0];
+    if (isAuthorized === false) {
+        return (
+            <>
+                <ExpiredAdmin />
+            </>
+        );
+    }
 
     if (sensorID == null || sensor == null || minMax == null) {
         return (

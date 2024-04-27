@@ -34,10 +34,8 @@ import MySpinner from '../layouts/Spinner';
 export default function DashboardAppPage() {
   const [user, dispatch] = useContext(MyUserContext);
   const theme = useTheme();
-  const navigate = useNavigate();
-  const choose = (id) => {
-    navigate(`/app/${id}`);
-  };
+
+ 
 
   const [data, setData] = useState();
 

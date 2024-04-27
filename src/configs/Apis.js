@@ -30,7 +30,8 @@ export const endpoints = {
   valueSensor1Day:"/api/value-sensor-1d",
   valueSensor1Week:"/api/value-sensor-1w",
   valueSensor1Month:"/api/value-sensor-1m",
-  valueMinMax:"/api/min-max-value"
+  valueMinMax:"/api/min-max-value",
+  allMinMax :"/api/all-min-max"
 
 
 

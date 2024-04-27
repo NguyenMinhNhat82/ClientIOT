@@ -50,14 +50,14 @@ export default function AdminNav({ openNav, onCloseNav }) {
   const output = [
     {
       title: 'Người dùng',
-      path: '/dashboard/app',
+      path: '/admin/home',
       icon: icon('ic_analytics'),
     },
-    // {
-    //   title: 'dashboard',
-    //   path: '/dashboard/app',
-    //   icon: icon('ic_analytics'),
-    // }
+    {
+      title: 'Statistical reports',
+      path: '/admin/report',
+      icon: icon('ic_analytics'),
+    }
 
 
 

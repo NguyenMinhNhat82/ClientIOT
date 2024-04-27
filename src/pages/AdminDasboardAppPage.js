@@ -52,7 +52,6 @@ export default function AdminDashboardAppPage() {
   const choose = (id) => {
     navigate(`/app/${id}`);
   };
-  console.log(user)
 
   const search = (evt) => {
     evt.preventDefault();
@@ -162,7 +161,7 @@ export default function AdminDashboardAppPage() {
     );
   }
   // data chart
-
+  if (user == null) return <Navigate to="/admin/login" />;
 
   return (
     <>
