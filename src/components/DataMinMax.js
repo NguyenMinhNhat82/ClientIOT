@@ -11,6 +11,11 @@ export default function DataMinMax(id) {
 
     const listener = useGlobalState('message')[0];
     const [data, setData] = useState();
+    const formatdDte = (e) => {
+        if(e!=null)
+            return `Date:${e.split("T")[0]}, Time${e.split("T")[1]}`
+        return ""
+    }
     const displayDate = (date) => {
         const dateArr = date.split("-");
         return `${dateArr[2]}-${dateArr[1]}-${dateArr[0]}`
@@ -99,30 +104,30 @@ export default function DataMinMax(id) {
                         return (
                             <tr>
                                 <td>{element.sensor}</td>
-                                <td>{element.data[0].max}</td>
-                                <td>{element.data[1].max}</td>
-                                <td>{element.data[2].max}</td>
-                                <td>{element.data[3].max}</td>
-                                <td>{element.data[4].max}</td>
-                                <td>{element.data[5].max}</td>
-                                <td>{element.data[6].max}</td>
-                                <td>{element.data[7].max}</td>
-                                <td>{element.data[8].max}</td>
-                                <td>{element.data[9].max}</td>
-                                <td>{element.data[10].max}</td>
-                                <td>{element.data[11].max}</td>
-                                <td>{element.data[12].max}</td>
-                                <td>{element.data[13].max}</td>
-                                <td>{element.data[14].max}</td>
-                                <td>{element.data[15].max}</td>
-                                <td>{element.data[16].max}</td>
-                                <td>{element.data[17].max}</td>
-                                <td>{element.data[18].max}</td>
-                                <td>{element.data[19].max}</td>
-                                <td>{element.data[20].max}</td>
-                                <td>{element.data[21].max}</td>
-                                <td>{element.data[22].max}</td>
-                                <td>{element.data[23].max}</td>
+                                <td  title={`Data max at: ${formatdDte(element.data[0].maxAt)}`}>{element.data[0].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[1].maxAt)}`}>{element.data[1].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[2].maxAt)}`}>{element.data[2].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[3].maxAt)}`}>{element.data[3].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[4].maxAt)}`}>{element.data[4].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[5].maxAt)}`}>{element.data[5].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[6].maxAt)}`}>{element.data[6].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[7].maxAt)}`}>{element.data[7].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[8].maxAt)}`}>{element.data[8].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[9].maxAt)}`}>{element.data[9].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[10].maxAt)}`}>{element.data[10].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[11].maxAt)}`}>{element.data[11].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[12].maxAt)}`}>{element.data[12].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[13].maxAt)}`}>{element.data[13].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[14].maxAt)}`}>{element.data[14].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[15].maxAt)}`}>{element.data[15].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[16].maxAt)}`}>{element.data[16].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[17].maxAt)}`}>{element.data[17].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[18].maxAt)}`}>{element.data[18].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[19].maxAt)}`}>{element.data[19].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[20].maxAt)}`}>{element.data[20].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[21].maxAt)}`}>{element.data[21].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[22].maxAt)}`}>{element.data[22].max}</td>
+                                <td title={`Data max at: ${formatdDte(element.data[23].maxAt)}`}>{element.data[23].max}</td>
                             </tr>
                         );
                     })}
@@ -145,8 +150,8 @@ export default function DataMinMax(id) {
                         <th>05</th>
                         <th>06</th>
                         <th>07</th>
+                        <th>08</th>
                         <th>09</th>
-                        <th>9</th>
                         <th>10</th>
                         <th>11</th>
                         <th>12</th>
@@ -168,33 +173,36 @@ export default function DataMinMax(id) {
 
                     {data.map((element) => {
                         return (
+                            <>
                             <tr>
-                                <td>{element.sensor}</td>
-                                <td>{element.data[0].min}</td>
-                                <td>{element.data[1].min}</td>
-                                <td>{element.data[2].min}</td>
-                                <td>{element.data[3].min}</td>
-                                <td>{element.data[4].min}</td>
-                                <td>{element.data[5].min}</td>
-                                <td>{element.data[6].min}</td>
-                                <td>{element.data[7].min}</td>
-                                <td>{element.data[8].min}</td>
-                                <td>{element.data[9].min}</td>
-                                <td>{element.data[10].min}</td>
-                                <td>{element.data[11].min}</td>
-                                <td>{element.data[12].min}</td>
-                                <td>{element.data[13].min}</td>
-                                <td>{element.data[14].min}</td>
-                                <td>{element.data[15].min}</td>
-                                <td>{element.data[16].min}</td>
-                                <td>{element.data[17].min}</td>
-                                <td>{element.data[18].min}</td>
-                                <td>{element.data[19].min}</td>
-                                <td>{element.data[20].min}</td>
-                                <td>{element.data[21].min}</td>
-                                <td>{element.data[22].min}</td>
-                                <td>{element.data[23].min}</td>
+                                <td>{element.sensor}</td>    
+                                <td title={`Data min at: ${formatdDte(element.data[0].minAt)}`}>{element.data[0].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[1].minAt)}`}> {element.data[1].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[2].minAt)}`}>{element.data[2].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[3].minAt)}`}>{element.data[3].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[4].minAt)}`}>{element.data[4].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[5].minAt)}`}>{element.data[5].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[6].minAt)}`}>{element.data[6].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[7].minAt)}`}>{element.data[7].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[8].minAt)}`}>{element.data[8].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[9].minAt)}`}> {element.data[9].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[10].minAt)}`}>{element.data[10].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[11].minAt)}`}>{element.data[11].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[12].minAt)}`}>{element.data[12].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[13].minAt)}`}>{element.data[13].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[14].minAt)}`}>{element.data[14].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[15].minAt)}`}>{element.data[15].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[16].minAt)}`}>{element.data[16].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[17].minAt)}`}>{element.data[17].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[18].minAt)}`}>{element.data[18].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[19].minAt)}`}>{element.data[19].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[20].minAt)}`}>{element.data[20].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[21].minAt)}`}>{element.data[21].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[22].minAt)}`}>{element.data[22].min}</td>
+                                <td title={`Data min at: ${formatdDte(element.data[23].minAt)}`}>{element.data[23].min}</td>
                             </tr>
+                            </>
+                            
                         );
                     })}
                 </tbody>

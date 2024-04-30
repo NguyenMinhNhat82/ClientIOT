@@ -48,6 +48,7 @@ export default function App() {
     stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
   }
   React.useEffect(() => {
+    // http://localhost:9000
     const Sock = new SockJS('https://serveriot-1.onrender.com/ws');
     stompClient = over(Sock);
     stompClient.connect({}, () => {

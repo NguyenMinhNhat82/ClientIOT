@@ -49,7 +49,7 @@ export default function AdminNav({ openNav, onCloseNav }) {
   const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />;
   const output = [
     {
-      title: 'Người dùng',
+      title: 'User',
       path: '/admin/home',
       icon: icon('ic_analytics'),
     },

@@ -8,17 +8,17 @@ import { AdminContext } from "../App";
 import { setGlobalState, useGlobalState } from "..";
 import Apis, { endpoints } from "../configs/Apis";
 import ExpiredAdmin from "./ExpiredAdmin";
+import MySpinner from "../layouts/Spinner";
 
 
 export default function StatisticalReports() {
-    const [date, setDate] = useState(new Date());
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
     const [user, dispatch] = useContext(AdminContext);
     const listener = useGlobalState('message')[0];
 
     useEffect(() => {
         const loaddata = async () => {
-    
+            setData(null)
             const res = await Apis.get(endpoints.allStation, {
                 headers: {
                     Authorization: `Bearer ${cookie.load('token')}`,
@@ -43,6 +43,14 @@ export default function StatisticalReports() {
             </>
         );
     }
+    console.log(data)
+    if (data == null)
+        
+        return (
+            <div className="text-center">
+                <MySpinner />
+            </div>
+        )
     return (<>
 
         <Container maxWidth="xl">
@@ -59,6 +67,6 @@ export default function StatisticalReports() {
                 })}
             </Grid>
         </Container>
-    
+
     </>)
 }

@@ -154,7 +154,7 @@ export default function RenderAllData(id) {
             <br />
             <br />
             <br />
-            <h3 className="text-center">Giá trị trong vòng 1 ngày qua</h3>
+            <h3 className="text-center">Giá trị trong vòng 24 giờ qua</h3>
             <ResponsiveContainer width="100%" aspect={3}>
                 <LineChart data={data1Day} margin={{ right: 300 }}>
                     <CartesianGrid />
@@ -168,7 +168,7 @@ export default function RenderAllData(id) {
             <br />
             <br />
             <br />
-            <h3 className="text-center">Giá trị trong vòng 1 tuần qua</h3>
+            <h3 className="text-center">Giá trị trong vòng 7 ngày qua</h3>
             <ResponsiveContainer width="100%" aspect={3}>
                 <LineChart data={data1Week} margin={{ right: 300 }}>
                     <CartesianGrid />
@@ -182,7 +182,7 @@ export default function RenderAllData(id) {
             <br />
             <br />
             <br />
-            <h3 className="text-center">Giá trị trong vòng 1 tháng qua</h3>
+            <h3 className="text-center">Giá trị trong vòng 31 ngày qua</h3>
             <ResponsiveContainer width="100%" aspect={3}>
                 <LineChart data={data1Month} margin={{ right: 300 }}>
                     <CartesianGrid />
