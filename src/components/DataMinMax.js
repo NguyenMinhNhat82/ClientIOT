@@ -79,8 +79,8 @@ export default function DataMinMax(id) {
                         <th>05</th>
                         <th>06</th>
                         <th>07</th>
+                        <th>08</th>
                         <th>09</th>
-                        <th>9</th>
                         <th>10</th>
                         <th>11</th>
                         <th>12</th>
