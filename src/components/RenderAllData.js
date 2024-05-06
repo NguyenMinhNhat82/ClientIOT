@@ -37,7 +37,7 @@ export default function RenderAllData(id) {
                         Authorization: `Bearer ${cookie.load('token')}`,
                     },
                 });
-                console.log(res)
+    
 
                 if (res.data === '') {
                     setGlobalState('isAuthorized', false);
