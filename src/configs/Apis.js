@@ -33,7 +33,9 @@ export const endpoints = {
   valueSensor1Month:"/api/value-sensor-1m",
   valueMinMax:"/api/min-max-value",
   allMinMax :"/api/all-min-max",
-  export:"/export"
+  export:"/export",
+  historyOfSensor:"/api/history-of-sensor"
+
 
 
 

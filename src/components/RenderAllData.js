@@ -25,92 +25,59 @@ export default function RenderAllData(id) {
         const data1d = [];
         const data1w = [];
         const data1m = [];
+        
         const loadData = async () => {
-            const loadInfoSensor1Hour = async () => {
-                const res = await Apis.get(`${endpoints.valueSensor1Hour}/${id.id}`, {
+            setData1Hour(null)
+            setData1Day(null)
+            setData1Week(null)
+            setData1Mont(null)
+            const loadAllData = async () => {
+                const res = await Apis.get(`${endpoints.historyOfSensor}/${id.id}`, {
                     headers: {
                         Authorization: `Bearer ${cookie.load('token')}`,
                     },
                 });
-                
+                console.log(res)
+
                 if (res.data === '') {
                     setGlobalState('isAuthorized', false);
                 } else {
-                    for (let i = 0; i < res.data.length; i += 1) {
+                    for (let i = 0; i < res.data.values1h.length; i += 1) {
                         data1h.push({
-                            name: `${formatdDte(res.data[i].timeUpdate)}`,
-                            value: res.data[i].value,
+                            name: `${formatdDte(res.data.values1h[i].timeUpdate)}`,
+                            value: res.data.values1h[i].value,
                         });
                     }
                     setData1Hour(data1h);
-                }
-                
-            };
 
-            const loadInfoSensor1Day = async () => {
-                const res = await Apis.get(`${endpoints.valueSensor1Day}/${id.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${cookie.load('token')}`,
-                    },
-                });
+                    for (let i = 0; i < res.data.values1m.length; i += 1) {
+                        data1m.push({
+                            name: `${formatdDte(res.data.values1m[i].timeUpdate)}`,
+                            value: res.data.values1m[i].value,
+                        });
+                    }
+                    setData1Mont(data1m);
 
-                if (res.data === '') {
-                    setGlobalState('isAuthorized', false);
-                } else {
-                    for (let i = 0; i < res.data.length; i += 1) {
+                    for (let i = 0; i < res.data.values1d.length; i += 1) {
                         data1d.push({
-                            name: `${formatdDte(res.data[i].timeUpdate)}`,
-                            value: res.data[i].value,
+                            name: `${formatdDte(res.data.values1d[i].timeUpdate)}`,
+                            value: res.data.values1d[i].value,
                         });
                     }
                     setData1Day(data1d);
-                }
-                
-            };
 
-            const loadInfoSensor1Week = async () => {
-                const res = await Apis.get(`${endpoints.valueSensor1Week}/${id.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${cookie.load('token')}`,
-                    },
-                });
-                if (res.data === '') {
-                    setGlobalState('isAuthorized', false);
-                } else {
-                    for (let i = 0; i < res.data.length; i += 1) {
+                    for (let i = 0; i < res.data.values1w.length; i += 1) {
                         data1w.push({
-                            name: `${formatdDte(res.data[i].timeUpdate)}`,
-                            value: res.data[i].value,
+                            name: `${formatdDte(res.data.values1w[i].timeUpdate)}`,
+                            value: res.data.values1w[i].value,
                         });
                     }
                     setData1Week(data1w);
                 }
-                
+
             };
 
-            const loadInfoSensor1Monh = async () => {
-                const res = await Apis.get(`${endpoints.valueSensor1Month}/${id.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${cookie.load('token')}`,
-                    },
-                });
-                if (res.data === '') {
-                    setGlobalState('isAuthorized', false);
-                } else {
-                    for (let i = 0; i < res.data.length; i += 1) {
-                        data1m.push({
-                            name: `${formatdDte(res.data[i].timeUpdate)}`,
-                            value: res.data[i].value,
-                        });
-                    }
-                    setData1Mont(data1m);
-                }
-            };
-            
-                loadInfoSensor1Day();
-                loadInfoSensor1Hour();
-                loadInfoSensor1Monh();
-                loadInfoSensor1Week();
+            loadAllData();
         }
         loadData();
 
@@ -124,11 +91,11 @@ export default function RenderAllData(id) {
             </>
         );
     }
-    if(data1Hour == null || data1Day == null || data1Week == null || data1Month == null){
-        return(<>
-        <div className="text-center">
-            <MySpinner/>
-        </div>
+    if (data1Hour == null || data1Day == null || data1Week == null || data1Month == null) {
+        return (<>
+            <div className="text-center">
+                <MySpinner />
+            </div>
         </>)
     }
     return (
@@ -141,7 +108,7 @@ export default function RenderAllData(id) {
             <br />
             <h3 className="text-center">Giá trị trong vòng 1 giờ qua</h3>
             <ResponsiveContainer width="100%" aspect={3}>
-                <LineChart data={data1Hour} margin={{ right: 300 }}>
+                <LineChart data={data1Hour}>
                     <CartesianGrid />
                     <XAxis hide dataKey="name" interval={'preserveStartEnd'} />
                     <YAxis />
@@ -155,13 +122,13 @@ export default function RenderAllData(id) {
             <br />
             <h3 className="text-center">Giá trị trong vòng 24 giờ qua</h3>
             <ResponsiveContainer width="100%" aspect={3}>
-                <LineChart data={data1Day} margin={{ right: 300 }}>
+                <LineChart data={data1Day} >
                     <CartesianGrid />
                     <XAxis hide dataKey="name" interval={'preserveStartEnd'} />
                     <YAxis />
                     <Legend />
                     <Tooltip />
-                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} dot = {false} />
+                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} dot={false} />
                 </LineChart>
             </ResponsiveContainer>
             <br />
@@ -169,13 +136,13 @@ export default function RenderAllData(id) {
             <br />
             <h3 className="text-center">Giá trị trong vòng 7 ngày qua</h3>
             <ResponsiveContainer width="100%" aspect={3}>
-                <LineChart data={data1Week} margin={{ right: 300 }}>
+                <LineChart data={data1Week} >
                     <CartesianGrid />
                     <XAxis hide dataKey="name" interval={'preserveStartEnd'} />
                     <YAxis />
                     <Legend />
                     <Tooltip />
-                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} dot = {false} />
+                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} dot={false} />
                 </LineChart>
             </ResponsiveContainer>
             <br />
@@ -183,13 +150,13 @@ export default function RenderAllData(id) {
             <br />
             <h3 className="text-center">Giá trị trong vòng 31 ngày qua</h3>
             <ResponsiveContainer width="100%" aspect={3}>
-                <LineChart data={data1Month} margin={{ right: 300 }}>
+                <LineChart data={data1Month} >
                     <CartesianGrid />
                     <XAxis hide dataKey="name" interval={'preserveStartEnd'} />
                     <YAxis />
                     <Legend />
                     <Tooltip />
-                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} dot ={false} />
+                    <Line dataKey="value" stroke="black" activeDot={{ r: 8 }} dot={false} />
                 </LineChart>
             </ResponsiveContainer>
         </>

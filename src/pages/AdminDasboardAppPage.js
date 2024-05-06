@@ -88,27 +88,31 @@ export default function AdminDashboardAppPage() {
 
       renderCell: (params) => {
         const deleteUser = () => {
-          const currentRow = params.row;
-          const removeUser = async () => {
-            const res = await Apis.delete(`${endpoints.deletUser}?idUSer=${currentRow.id}`, {
-              headers: {
-                Authorization: `Bearer ${cookie.load('token')}`,
-              },
-            })
-            
-            if (res.data === "Success") {
-              if (refresh) {
-                setRefresh(false)
+          const c = window.confirm("Bạn có chắc muốn xóa người dùng này?");
+          if(c === true){
+            const currentRow = params.row;
+            const removeUser = async () => {
+              const res = await Apis.delete(`${endpoints.deletUser}?idUSer=${currentRow.id}`, {
+                headers: {
+                  Authorization: `Bearer ${cookie.load('token')}`,
+                },
+              })
+              
+              if (res.data === "Success") {
+                if (refresh) {
+                  setRefresh(false)
+                }
+                else {
+                  setRefresh(true)
+                }
               }
               else {
-                setRefresh(true)
+                alert(res.data)
               }
             }
-            else {
-              alert(res.data)
-            }
+            removeUser();
           }
-          removeUser();
+          
         }
         const onClick = (e) => {
           const currentRow = params.row;
