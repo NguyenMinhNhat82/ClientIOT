@@ -1,8 +1,8 @@
 import axios from 'axios';
 import cookie from 'react-cookies';
 
-const SERVER = 'https://serveriot-1.onrender.com';
-// const SERVER = 'http://localhost:9000';
+// const SERVER = 'https://serveriot-0z1m.onrender.com';
+const SERVER = 'https://serveriot-0z1m.onrender.com';
 
 export const endpoints = {
   login: '/authenticate',
@@ -32,7 +32,8 @@ export const endpoints = {
   valueSensor1Week:"/api/value-sensor-1w",
   valueSensor1Month:"/api/value-sensor-1m",
   valueMinMax:"/api/min-max-value",
-  allMinMax :"/api/all-min-max"
+  allMinMax :"/api/all-min-max",
+  export:"/export"
 
 
 

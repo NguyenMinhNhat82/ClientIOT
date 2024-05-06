@@ -33,7 +33,6 @@ export default function StationReport() {
                 value={date}
                 onChange={(e) => {
                     setDate(e.target.value)
-                    console.log(e.target.value)
                 }}
             />
         </div>

@@ -26,7 +26,6 @@ export default function RenderAllData(id) {
         const data1w = [];
         const data1m = [];
         const loadData = async () => {
-            console.log(`${endpoints.valueSensor1Hour}/${id.id}`)
             const loadInfoSensor1Hour = async () => {
                 const res = await Apis.get(`${endpoints.valueSensor1Hour}/${id.id}`, {
                     headers: {
@@ -86,7 +85,7 @@ export default function RenderAllData(id) {
                     }
                     setData1Week(data1w);
                 }
-                console.log(data1Week)
+                
             };
 
             const loadInfoSensor1Monh = async () => {

@@ -117,9 +117,7 @@ export default function Detail() {
   const handleChildClick = (event, sensorId, value, classPic,unitSensor) => {
     event.preventDefault();
     // Cập nhật giá trị của indexSensor thành giá trị của childSensor
-    console.log(event);
-    console.log(sensorId);
-    console.log(value);
+    
     setPic(classPic)
     setUnit(unitSensor)
     setIndexValue(value);
@@ -234,7 +232,7 @@ export default function Detail() {
         },
       });
       setStationInfo(res.data);
-      console.log(stationInfo);
+      
     };
     const loaddata = async () => {
       const res = await Apis.get(`${endpoints.current_data}/${path.id}`, {
@@ -242,18 +240,19 @@ export default function Detail() {
           Authorization: `Bearer ${cookie.load('token')}`,
         },
       });
+      
+      setRelay(res.data.relayValues)
       const resRelay = await Apis.get(`${endpoints.current_data}/Relay/station/${path.id}`, {
         headers: {
           Authorization: `Bearer ${cookie.load('token')}`,
         },
       });
-      setRelay(resRelay.data);
       if (res.data === '') {
         setGlobalState('isAuthorized', false);
       } else {
         setData(res.data);
       }
-      console.log(data);
+      
     };
     loaddata();
     loadInfoStation();
@@ -310,7 +309,7 @@ export default function Detail() {
             {relay.map((element) => {
               return (
                 <div style={{ marginTop: '10px' }}>
-                  {`${element.sensor.id.split('_')[0]} ${element.sensor.id.split('_')[1]}`}
+                  {`${element.name.split('_')[0]} ${element.name.split('_')[1]}`}
                   {element.value === 'true' ? enable : disable}
                 </div>
               );

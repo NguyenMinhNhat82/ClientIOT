@@ -77,7 +77,7 @@ export default function LoginPage() {
           "password": password
         }); 
         cookie.save("token", res.data.jwtToken);
-        console.log(res.status)
+        
         if(res.status === 200){
           setGlobalState("isAuthorized",true)
         }

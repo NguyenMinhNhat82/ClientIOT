@@ -120,9 +120,9 @@ export default function MinMax(id) {
                     <tr>
                         <th style={styles.headerCell}> </th>
                         <th style={styles.headerCell}>Trong vòng 1 giờ qua</th>
-                        <th style={styles.headerCell}>Trong vòng 1 ngày qua</th>
-                        <th style={styles.headerCell}>Trong vòng 1 tuần qua</th>
-                        <th style={styles.headerCell}>Trong vòng 1 tháng qua</th>
+                        <th style={styles.headerCell}>Trong vòng 24 giờ qua</th>
+                        <th style={styles.headerCell}>Trong vòng 7 ngày qua</th>
+                        <th style={styles.headerCell}>Trong vòng 31 ngày qua</th>
                     </tr>
                 </thead>
                 <tbody>

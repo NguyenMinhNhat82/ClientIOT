@@ -90,7 +90,7 @@ export default function LoginPage() {
             const expirationOfToken = await Apis.get(`${endpoints.getExpirationDate}/${res.data.jwtToken}`)
             cookie.save("expiration", expirationOfToken.data);
             cookie.save("user", data);
-            console.log(data);
+            
             setGlobalState("user", data);
             dispatch({
               "type": "login",
@@ -141,11 +141,11 @@ export default function LoginPage() {
               "email": email,
               "name": userName
             })
-            console.log(OTPRes.data);
+            
             if (OTPRes.data !== 0) {
               setOtp(OTPRes.data);
               setShowtOtp(!showOTP);
-              console.log(1)
+              
             }
 
           }
@@ -159,7 +159,7 @@ export default function LoginPage() {
       }
 
       catch (error) {
-        console.log(error)
+        
         alert("Tài khoản hoặc mật khẩu không khả dụng")
       }
     }

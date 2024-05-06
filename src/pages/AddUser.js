@@ -31,7 +31,7 @@ function AddUser() {
     }
     const handleChange = (event) => {
         setRole(event.target.value)
-        console.log(role)
+        
     };
     const handleEdit = () => {
         const editUser = async () => {

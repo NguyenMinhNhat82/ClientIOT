@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, Table } from "react-bootstrap";
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container, Typography, Button } from '@mui/material';
+import fileDownload from "js-file-download";
+import axios, { Axios } from "axios";
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import cookie from 'react-cookies';
 import { AppWidgetSummary } from '../sections/@dashboard/app';
@@ -11,10 +13,27 @@ import ExpiredAdmin from "./ExpiredAdmin";
 import MySpinner from "../layouts/Spinner";
 
 
+
+
 export default function StatisticalReports() {
     const [data, setData] = useState(null);
     const [user, dispatch] = useContext(AdminContext);
     const listener = useGlobalState('message')[0];
+    const exportData = async () => {
+
+        const config = {
+            headers: { Authorization: `Bearer ${cookie.load('token')}` }
+        };
+        axios({
+            url: "",
+            method: 'GET',
+            responseType: 'blob',
+
+        }).then((response) => {
+            fileDownload(response.data, 'report.csv');
+        });
+
+    }
 
     useEffect(() => {
         const loaddata = async () => {
@@ -24,7 +43,6 @@ export default function StatisticalReports() {
                     Authorization: `Bearer ${cookie.load('token')}`,
                 },
             });
-            console.log(res);
             if (res.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
@@ -43,9 +61,8 @@ export default function StatisticalReports() {
             </>
         );
     }
-    console.log(data)
     if (data == null)
-        
+
         return (
             <div className="text-center">
                 <MySpinner />
@@ -53,7 +70,18 @@ export default function StatisticalReports() {
         )
     return (<>
 
+
+
         <Container maxWidth="xl">
+            <a href="https://serveriot-0z1m.onrender.com/export">
+                <Button variant="contained"  >
+                    Export all data
+                </Button>
+            </a>
+
+            <br />
+            <br />
+            <br />
 
             <Grid container spacing={3}>
                 {data.map((element) => {

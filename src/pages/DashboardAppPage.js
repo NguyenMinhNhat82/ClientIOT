@@ -47,12 +47,12 @@ export default function DashboardAppPage() {
           Authorization: `Bearer ${cookie.load('token')}`,
         },
       });
-      console.log(res);
+      
       if (res.data === '') {
         setGlobalState('isAuthorized', false);
       } else {
         setData(res.data);
-        console.log(data);
+        
       }
     };
     loaddata();

@@ -4,9 +4,9 @@ import { Helmet } from 'react-helmet-async';
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import cookie from 'react-cookies';
 // @mui
-import {  Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography, Button, Stack, TextField, listItemTextClasses } from '@mui/material';
+import { Grid, Container, Typography, Button, Stack, TextField, listItemTextClasses, Select, MenuItem } from '@mui/material';
 import { toInteger } from 'lodash';
 import { DataGrid } from '@mui/x-data-grid';
 import Apis, { endpoints } from '../configs/Apis';
@@ -30,6 +30,7 @@ import {
 } from '../sections/@dashboard/app';
 import Expired from './Expired';
 import ExpiredAdmin from './ExpiredAdmin';
+import MySpinner from '../layouts/Spinner';
 
 
 
@@ -40,12 +41,12 @@ import ExpiredAdmin from './ExpiredAdmin';
 
 export default function AdminDashboardAppPage() {
   const [user, dispatch] = useContext(AdminContext);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [refresh, setRefresh] = useState(false)
   const [id, setid] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("USER");
   const theme = useTheme();
   const navigate = useNavigate();
   const [q] = useSearchParams();
@@ -56,7 +57,14 @@ export default function AdminDashboardAppPage() {
   const search = (evt) => {
     evt.preventDefault();
     navigate(`/admin/home?id=${id}&name=${name}&role=${role}&email=${email}`)
-}
+  }
+  const handleRefesh =() =>{
+    document.getElementById("name").value = ""
+    document.getElementById("email").value = ""
+    document.getElementById("id").value = ""
+    setRole("USER")
+    navigate(`/admin/home`)
+  }
 
 
   const listener = useGlobalState('message')[0];
@@ -87,7 +95,7 @@ export default function AdminDashboardAppPage() {
                 Authorization: `Bearer ${cookie.load('token')}`,
               },
             })
-            console.log(res)
+            
             if (res.data === "Success") {
               if (refresh) {
                 setRefresh(false)
@@ -127,12 +135,12 @@ export default function AdminDashboardAppPage() {
   };
   useEffect(() => {
     const loadUser = async () => {
-  
+
       const idParam = q.get("id")
       const nameParam = q.get("name")
       const emailParam = q.get("email")
-      const roleParam = q.get("role")  
-      const e =`${endpoints.listUser}?id=${idParam === null?"":idParam}&name=${nameParam === null ?"":nameParam}&role=${roleParam=== null?"":roleParam}&email=${emailParam=== null?"":emailParam}`
+      const roleParam = q.get("role")
+      const e = `${endpoints.listUser}?id=${idParam === null ? "" : idParam}&name=${nameParam === null ? "" : nameParam}&role=${roleParam === null ? "" : roleParam}&email=${emailParam === null ? "" : emailParam}`
       const res = await Apis.get(e, {
         headers: {
           Authorization: `Bearer ${cookie.load('token')}`,
@@ -147,11 +155,16 @@ export default function AdminDashboardAppPage() {
         }
         )
         setData(row1);
-        console.log(data)
+        
       }
     }
     loadUser();
-  }, [refresh,q])
+  }, [refresh, q])
+
+  const handleChange = (event) => {
+    setRole(event.target.value)
+
+  };
   //   if (user == null) return <Navigate to="/login" />;
   if (isAuthorized === false) {
     return (
@@ -159,6 +172,15 @@ export default function AdminDashboardAppPage() {
         <ExpiredAdmin />
       </>
     );
+  }
+  if (data === null) {
+    return (
+      <>
+        <div className='text-center'>
+          <MySpinner />
+        </div>
+      </>
+    )
   }
   // data chart
   if (user == null) return <Navigate to="/admin/login" />;
@@ -179,7 +201,7 @@ export default function AdminDashboardAppPage() {
           <div className="d-flex flex-row mb-3 gap-5">
             <div className="search">
               <TextField
-                id="outlined-basic"
+                id="id"
                 variant="outlined"
                 fullWidth
                 label="Id"
@@ -188,7 +210,7 @@ export default function AdminDashboardAppPage() {
             </div>
             <div className="search">
               <TextField
-                id="outlined-basic"
+                id="name"
                 variant="outlined"
                 fullWidth
                 label="Name"
@@ -197,7 +219,7 @@ export default function AdminDashboardAppPage() {
             </div>
             <div className="search">
               <TextField
-                id="outlined-basic"
+                id="email"
                 variant="outlined"
                 fullWidth
                 label="Email"
@@ -205,19 +227,27 @@ export default function AdminDashboardAppPage() {
               />
             </div>
             <div className="search">
-              <TextField
-                id="outlined-basic"
-                variant="outlined"
-                fullWidth
-                label="Role"
-                onChange={e => setRole(e.target.value)}
-              />
+              <Select
+                labelId="role"
+                id="demo-simple-select"
+                value={`${role}`}
+                label="Age"
+                onChange={handleChange}
+              >
+                <MenuItem value={"ADMIN"}>Quản trị viên</MenuItem>
+                <MenuItem value={"USER"}>Người dùng</MenuItem>
+
+              </Select>
             </div>
             <Button variant="contained" type="submit">
               Search
             </Button>
+            <Button variant="contained" onClick={handleRefesh} >
+              Refresh
+            </Button>
           </div>
         </Form>
+
 
         <div style={{ height: 400, width: '100%' }}>
           <DataGrid

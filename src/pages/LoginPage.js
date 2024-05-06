@@ -106,7 +106,7 @@ export default function LoginPage() {
           password,
         });
         cookie.save('token', res.data.jwtToken);
-        console.log(res.status);
+        
         if (res.status === 200 && captchatext === document.getElementById('textcap').textContent) {
           setGlobalState('isAuthorized', true);
           const data = await authApi().get(endpoints.current_user);

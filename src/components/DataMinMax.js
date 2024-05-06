@@ -45,7 +45,7 @@ export default function DataMinMax(id) {
         process();
 
     }, [listener, id]);
-    console.log(data)
+    
 
     const isAuthorized = useGlobalState('isAuthorized')[0];
     if (isAuthorized === false) {

@@ -1,6 +1,5 @@
 
 import cookie from "react-cookies";
-import Cookies from "js-cookie";
 import { setGlobalState } from "..";
 
 
@@ -10,7 +9,6 @@ const MyUserReducer = (currentState, action) => {
     case "login":
       return action.payload;
     case "logout": {
-      console.log("123123123")
       setGlobalState("isAuthorized", false)
       // cookie.remove("token");
       // cookie.remove("user");
