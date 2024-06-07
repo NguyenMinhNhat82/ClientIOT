@@ -27,10 +27,6 @@ export default function RenderAllData(id) {
         const data1m = [];
         
         const loadData = async () => {
-            setData1Hour(null)
-            setData1Day(null)
-            setData1Week(null)
-            setData1Mont(null)
             const loadAllData = async () => {
                 const res = await Apis.get(`${endpoints.historyOfSensor}/${id.id}`, {
                     headers: {
