@@ -44,7 +44,32 @@ export default function DataMinMax(id) {
         }
         process();
 
-    }, [listener, id]);
+    }, [id]);
+
+    useEffect(() => {
+        const process = async () => {
+            const res = await Apis.post(`${endpoints.allMinMax}/${id.id}`,
+                {
+                    "date": `${id.dateValue}`,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${cookie.load('token')}`,
+                    },
+                });
+
+            if (res.data === '') {
+                setGlobalState('isAuthorized', false);
+            } else {
+                setData(res.data.sensorMinMaxes)
+            }
+
+
+
+        }
+        process();
+
+    }, [listener]);
     
 
     const isAuthorized = useGlobalState('isAuthorized')[0];
