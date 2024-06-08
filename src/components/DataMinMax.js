@@ -22,7 +22,11 @@ export default function DataMinMax(id) {
     }
     useEffect(() => {
         const process = async () => {
-            setData(null)
+            // Only set data to null if listener has changed
+            if (prevListener.current !== listener) {
+                setData(null);
+            }
+            
             const res = await Apis.post(`${endpoints.allMinMax}/${id.id}`,
                 {
                     "date": `${id.dateValue}`,
@@ -32,44 +36,22 @@ export default function DataMinMax(id) {
                         Authorization: `Bearer ${cookie.load('token')}`,
                     },
                 });
-
+    
             if (res.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
                 setData(res.data.sensorMinMaxes)
             }
-
-
-
+    
+            // Update the previous listener value
+            prevListener.current = listener;
         }
         process();
-
-    }, [id]);
-
-    useEffect(() => {
-        const process = async () => {
-            const res = await Apis.post(`${endpoints.allMinMax}/${id.id}`,
-                {
-                    "date": `${id.dateValue}`,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${cookie.load('token')}`,
-                    },
-                });
-
-            if (res.data === '') {
-                setGlobalState('isAuthorized', false);
-            } else {
-                setData(res.data.sensorMinMaxes)
-            }
-
-
-
-        }
-        process();
-
-    }, [listener]);
+    
+    }, [listener, id]);
+    
+    // Define a ref to store the previous value of listener
+    const prevListener = useRef();
     
 
     const isAuthorized = useGlobalState('isAuthorized')[0];
