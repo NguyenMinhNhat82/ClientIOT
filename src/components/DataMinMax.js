@@ -23,8 +23,14 @@ export default function DataMinMax(id) {
     useEffect(() => {
         const process = async () => {
             // Only set data to null if listener has changed
-            if (prevListener.current !== listener) {
-                setData(null);
+
+            if(prevListener.current !== listener){
+                console.log(1)
+            }
+            if(prevId.current!=null){
+                if (prevId.current.dateValue !== id.dateValue) {
+                    setData(null)
+                }
             }
             
             const res = await Apis.post(`${endpoints.allMinMax}/${id.id}`,
@@ -45,6 +51,7 @@ export default function DataMinMax(id) {
     
             // Update the previous listener value
             prevListener.current = listener;
+            prevId.current = id;
         }
         process();
     
@@ -52,6 +59,7 @@ export default function DataMinMax(id) {
     
     // Define a ref to store the previous value of listener
     const prevListener = useRef();
+    const prevId = useRef();
     
 
     const isAuthorized = useGlobalState('isAuthorized')[0];
