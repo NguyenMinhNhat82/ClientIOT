@@ -60,7 +60,7 @@
     "fake": "^0.2.2",
     "faker": "^6.6.6",
     "file-saver": "^2.0.5",
-    "framer-motion": "^11.1.7",
+    "framer-motion": "^11.2.10",
     "history": "^5.3.0",
     "js-cookie": "^3.0.5",
     "js-file-download": "^0.4.12",

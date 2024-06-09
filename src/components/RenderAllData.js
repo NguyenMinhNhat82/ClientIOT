@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import cookie from 'react-cookies';
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { setGlobalState, useGlobalState } from "..";
@@ -12,6 +12,7 @@ export default function RenderAllData(id) {
     const [data1Day, setData1Day] = useState();
     const [data1Week, setData1Week] = useState();
     const [data1Month, setData1Mont] = useState();
+    const prevId = useRef();
 
     const listener = useGlobalState('message')[0];
 
@@ -27,6 +28,15 @@ export default function RenderAllData(id) {
         const data1m = [];
         
         const loadData = async () => {
+            if(prevId.current!= null){
+                if(prevId.current.id !== id.id){
+                    setData1Hour(null);
+                    setData1Day(null);
+                    setData1Mont(null);
+                    setData1Week(null)
+                }
+            }
+            
             const loadAllData = async () => {
                 const res = await Apis.get(`${endpoints.historyOfSensor}/${id.id}`, {
                     headers: {
@@ -76,6 +86,7 @@ export default function RenderAllData(id) {
             loadAllData();
         }
         loadData();
+        prevId.current = id
 
     }, [listener, id])
 

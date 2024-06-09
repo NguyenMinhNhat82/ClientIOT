@@ -81,7 +81,7 @@ export default function MinMax(id) {
         loadData();
 
     }
-        , [listener])
+    , [listener])
 
 
     const isAuthorized = useGlobalState('isAuthorized')[0];

@@ -2,7 +2,7 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 
 // const SERVER = 'https://serveriot-0z1m.onrender.com';
-const SERVER = 'https://serveriot-ob37.onrender.com';
+const SERVER = 'http://localhost:9000';
 
 export const endpoints = {
   login: '/authenticate',
@@ -34,7 +34,13 @@ export const endpoints = {
   valueMinMax:"/api/min-max-value",
   allMinMax :"/api/all-min-max",
   export:"/export",
-  historyOfSensor:"/api/history-of-sensor"
+  historyOfSensor:"/api/history-of-sensor",
+  getAllStationAndSensor :"/api/all-station-and-sensor",
+  inActveStation : "/api/station/in-active/",
+  actveStation : "/api/station/active/",
+  inActiveSensor: '/api/sensor/in-avtive/',
+  activeSensor: '/api/sensor/avtive/',
+
 
 
 

@@ -47,6 +47,7 @@ export default function StatisticalReports() {
                 setGlobalState('isAuthorized', false);
             } else {
                 setData(res.data);
+                console.log(data)
             }
         };
         loaddata();

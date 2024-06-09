@@ -18,6 +18,7 @@ import EditUser from './pages/EditUser';
 import AddUser from './pages/AddUser';
 import StatisticalReports from './pages/StatisticalReports';
 import StationReport from './pages/StationReport';
+import Controller from './pages/Controller';
 
 // ----------------------------------------------------------------------
 
@@ -70,6 +71,7 @@ Router() {
         {path :"user/:id", element: <EditUser/>},
         {path :"user/add", element: <AddUser/>},
         {path :"report", element: <StatisticalReports/>},
+        {path :"controller", element: <Controller/>},
         {path :"report/:id", element: <StationReport/>},
       ],
     }

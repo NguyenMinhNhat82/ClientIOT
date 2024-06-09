@@ -57,6 +57,11 @@ export default function AdminNav({ openNav, onCloseNav }) {
       title: 'Statistical reports',
       path: '/admin/report',
       icon: icon('ic_analytics'),
+    },
+    {
+      title: 'Controller',
+      path: '/admin/controller',
+      icon: icon('ic_analytics'),
     }
 
 
