@@ -19,6 +19,7 @@ import AddUser from './pages/AddUser';
 import StatisticalReports from './pages/StatisticalReports';
 import StationReport from './pages/StationReport';
 import Controller from './pages/Controller';
+import Notification from './pages/Notification';
 
 // ----------------------------------------------------------------------
 
@@ -73,6 +74,7 @@ Router() {
         {path :"report", element: <StatisticalReports/>},
         {path :"controller", element: <Controller/>},
         {path :"report/:id", element: <StationReport/>},
+        {path :"notification", element: <Notification/>}
       ],
     }
   ]);

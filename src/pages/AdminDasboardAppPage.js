@@ -65,6 +65,8 @@ export default function AdminDashboardAppPage() {
     setRole("USER")
     navigate(`/admin/home`)
   }
+  
+  
 
 
   const listener = useGlobalState('message')[0];
@@ -161,6 +163,40 @@ export default function AdminDashboardAppPage() {
         setData(row1);
         
       }
+
+
+      
+      const resNotification = await Apis.get(endpoints.getNumberUnread, {
+        headers: {
+            Authorization: `Bearer ${cookie.load('token')}`,
+        },
+    });
+    if (resNotification.data === '') {
+        setGlobalState('isAuthorized', false);
+    } else {
+ 
+      const notification  = document.querySelector("#root > div > nav > div > div > div > div > div.simplebar-wrapper > div.simplebar-mask > div > div > div > div.MuiBox-root.css-0 > ul > a:nth-child(4)");
+      if(notification != null){
+        console.log(notification.childNodes.length)
+        if(notification.childNodes.length > 2){
+          if (notification.lastChild) {
+            notification.removeChild(notification.lastChild);
+          }
+          
+        }
+        const spanElement = document.createElement("span");
+        
+      
+        // Set the inner HTML content to "0"
+        spanElement.innerHTML = resNotification.data
+        spanElement.style.padding = "4px 13px";
+        spanElement.style.backgroundColor = "red";
+        spanElement.style.color = "white";
+        spanElement.style.borderRadius = "10px";
+        
+        notification.appendChild(spanElement)
+    }
+  }
     }
     loadUser();
   }, [refresh, q])

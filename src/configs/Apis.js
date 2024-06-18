@@ -2,7 +2,7 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 
 // const SERVER = 'https://serveriot-0z1m.onrender.com';
-const SERVER = 'http://localhost:9000';
+const SERVER = 'https://serveriot-ob37.onrender.com';
 
 export const endpoints = {
   login: '/authenticate',
@@ -40,6 +40,17 @@ export const endpoints = {
   actveStation : "/api/station/active/",
   inActiveSensor: '/api/sensor/in-avtive/',
   activeSensor: '/api/sensor/avtive/',
+  average : '/api/sensor/average',
+  getNumberUnread : "/api/notification/get-num-unread",
+  getAllNotification:"/api/notification/get-all",
+  readAllNotification: "/api/notification/read-all",
+  scheduleInActive :"/api/sensor/schedule-inactive",
+  cancelSchedule :"/api/sensor/cancel-schedule/",
+  editSchedule :"/api/sensor/edit-schedule-inactive",
+  getDataWeekInMonth:"/api/sensor/dataByMonthAndWeek",
+  getDataDayInWeek:"/api/sensor/dataByWeek",
+  getIndex:"/api/sensor/get-index"
+
 
 
 

@@ -11,10 +11,7 @@ export default function MinMax(id) {
     const [minMax, setMinMax] = useState();
     const [sensorID, setSensorID] = useState();
     const listener = useGlobalState('message')[0];
-    const [data1Hour, setData1Hour] = useState();
-    const [data1Day, setData1Day] = useState();
-    const [data1Week, setData1Week] = useState();
-    const [data1Month, setData1Mont] = useState();
+    const [average, setAverage] = useState();
 
     const formatdDte = (e) => {
 
@@ -47,25 +44,46 @@ export default function MinMax(id) {
             } else {
                 setMinMax(resMinMax.data);
             }
+
+            const resAverage = await Apis.get(`${endpoints.average}/${e}`, {
+                headers: {
+                    Authorization: `Bearer ${cookie.load('token')}`,
+                },
+            });
+            if (resAverage.data === '') {
+                setGlobalState('isAuthorized', false);
+            } else {
+                setAverage(resAverage.data);
+            }
+            // if (resMinMax.data === '') {
+            //     setGlobalState('isAuthorized', false);
+            // } else {
+            //     setMinMax(resMinMax.data);
+            // }
+            
         }
         loadDataMinMax();
     };
 
 
     useEffect(() => {
-
+        
+        setSensorID(id.id);
+        
         const loadData = async () => {
+            setAverage(null)
+            setMinMax(null)
             const resSensor = await Apis.get(`${endpoints.listSensor}/${id.id}`, {
                 headers: {
                     Authorization: `Bearer ${cookie.load('token')}`,
                 },
             });
             const sensorSelected = document.getElementById('selectedSensor');
-            handleOnChangeSensor(sensorSelected === null ? resSensor.data[0].id : sensorSelected.value);
-            setSensorID(sensorSelected === null ? resSensor.data[0].id : sensorSelected.value);
+            handleOnChangeSensor(id.id);
+            setSensorID(id.id);
             setSensor(resSensor.data);
 
-            const resMinMax = await Apis.get(`${endpoints.valueMinMax}/${sensorSelected === null ? resSensor.data[0].id : sensorSelected.value
+            const resMinMax = await Apis.get(`${endpoints.valueMinMax}/${id.id
                 }`, {
                 headers: {
                     Authorization: `Bearer ${cookie.load('token')}`,
@@ -77,11 +95,22 @@ export default function MinMax(id) {
             } else {
                 setMinMax(resMinMax.data);
             }
+            const resAverage = await Apis.get(`${endpoints.average}/${id.id}`, {
+                headers: {
+                    Authorization: `Bearer ${cookie.load('token')}`,
+                },
+            });
+            if (resAverage.data === '') {
+                setGlobalState('isAuthorized', false);
+            } else {
+                setAverage(resAverage.data);
+            }
         }
         loadData();
+        
 
     }
-    , [listener])
+    , [listener,id])
 
 
     const isAuthorized = useGlobalState('isAuthorized')[0];
@@ -93,7 +122,7 @@ export default function MinMax(id) {
         );
     }
 
-    if (sensorID == null || sensor == null || minMax == null) {
+    if (sensorID == null || minMax == null || average ==null) {
         return (
             <>
                 <div className="text-center">
@@ -104,7 +133,7 @@ export default function MinMax(id) {
     }
     return (<>
         <div className="MinMaxSensor" style={{ marginTop: '20px', marginLeft: '8px' }}>
-            <select
+            {/* <select
                 id="selectedSensor"
                 style={{ width: '30%', height: '25px', border: '0.2px', boxShadow: '5px 5px 10px 0 rgba(0, 0, 0, 0.1)' }}
                 onChange={(e) => {
@@ -114,7 +143,7 @@ export default function MinMax(id) {
                 {sensor.map((element) => {
                     return <option value={element.id}>{element.id}</option>;
                 })}
-            </select>
+            </select> */}
             <table style={{ borderCollapse: 'collapse', width: '100%', marginTop: '5px', backgroundColor: '#ffffff' }}>
                 <thead>
                     <tr>
@@ -139,6 +168,20 @@ export default function MinMax(id) {
                         <td style={styles.dataCell}>{minMax.min1d}</td>
                         <td style={styles.dataCell}>{minMax.min1w}</td>
                         <td style={styles.dataCell}>{minMax.min1m}</td>
+                    </tr>
+                    <tr>
+                        <td style={styles.dataCell}>Giá trung bình</td>
+                        <td style={styles.dataCell}>{average.average1h}</td>
+                        <td style={styles.dataCell}>{average.average1d}</td>
+                        <td style={styles.dataCell}>{average.average1w}</td>
+                        <td style={styles.dataCell}>{average.average1m}</td>
+                    </tr>
+                    <tr>
+                        <td style={styles.dataCell}>Dô lệch trung bình</td>
+                        <td style={styles.dataCell}>{average.standardDeviation1h}</td>
+                        <td style={styles.dataCell}>{average.standardDeviation1d}</td>
+                        <td style={styles.dataCell}>{average.standardDeviation1w}</td>
+                        <td style={styles.dataCell}>{average.standardDeviation1m}</td>
                     </tr>
                 </tbody>
             </table>

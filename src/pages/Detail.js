@@ -137,6 +137,7 @@ export default function Detail() {
   const [sensorID, setSensorID] = useState();
   const [minMax, setMinMax] = useState();
   const [unit, setUnit] = useState("°C");
+  const [id , sertId] = useState(path.id);
 
 
   const formatdDte = (e)=>{
@@ -235,23 +236,24 @@ export default function Detail() {
       
     };
     const loaddata = async () => {
-      const res = await Apis.get(`${endpoints.current_data}/${path.id}`, {
-        headers: {
-          Authorization: `Bearer ${cookie.load('token')}`,
-        },
-      });
+      // const res = await Apis.get(`${endpoints.current_data}/${path.id}`, {
+      //   headers: {
+      //     Authorization: `Bearer ${cookie.load('token')}`,
+      //   },
+      // });
       
-      setRelay(res.data.relayValues)
+      // setRelay(res.data.relayValues)
       const resRelay = await Apis.get(`${endpoints.current_data}/Relay/station/${path.id}`, {
         headers: {
           Authorization: `Bearer ${cookie.load('token')}`,
         },
       });
-      if (res.data === '') {
+      if (resRelay.data === '') {
         setGlobalState('isAuthorized', false);
       } else {
-        setData(res.data);
+        setRelay(resRelay.data);
       }
+      console.log(relay)
       
     };
     loaddata();
@@ -309,8 +311,8 @@ export default function Detail() {
             {relay.map((element) => {
               return (
                 <div style={{ marginTop: '10px' }}>
-                  {`${element.name.split('_')[0]} ${element.name.split('_')[1]}`}
-                  {element.value === 'true' ? enable : disable}
+                  {`${element.sensor.id.split('_')[0]} ${element.sensor.id.split('_')[1]}`}
+                  {element.sensor.active === false? disable: element.value=== 'true' ? enable : disable}
                 </div>
               );
             })}
@@ -321,7 +323,7 @@ export default function Detail() {
           </div>
         </div>
         <CurrentContent id = {path.id} />
-        <MinMax id = {path.id}/>
+        
       
       </div>
     </>
