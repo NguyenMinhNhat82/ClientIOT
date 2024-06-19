@@ -12,7 +12,7 @@ export default function MinMax(id) {
     const [sensorID, setSensorID] = useState();
     const listener = useGlobalState('message')[0];
     const [average, setAverage] = useState();
-
+    console.log(`test${id.id}`)
     const formatdDte = (e) => {
 
         return `Date:${e.split("T")[0]}, Time${e.split("T")[1]}`

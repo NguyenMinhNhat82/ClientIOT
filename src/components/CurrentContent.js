@@ -26,7 +26,7 @@ export default function CurrentContent(id) {
     const listener = useGlobalState('message')[0];
     const [indexValue, setIndexValue] = useState(1);
     const [nameValue, setNameValue] = useState(1);
-    const [idSensor, setIdSensor] = useState(id.id);
+    const [idSensor, setIdSensor] = useState("temp_0001");
     const [pic, setPic] = useState(<svg
         xmlns="http://www.w3.org/2000/svg"
         width="50"
