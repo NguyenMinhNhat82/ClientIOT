@@ -94,8 +94,8 @@ export default function DashboardAppPage() {
           {data.map((element) => {
             return (
               <Grid item xs={12} sm={6} md={3}>
-                <Link style={{ textDecoration: 'none' }} to={`/dashboard/info/${element.id}`}>
-                  <AppWidgetSummary title={element.name} color="success" icon={'ant-design:desktop-outlined'} />
+                <Link style={{ textDecoration: 'none' }} to={element.active ===true?`/dashboard/info/${element.id}`:""}>
+                  <AppWidgetSummary title={element.name} color={element.active===true?"success":"warning"} icon={'ant-design:desktop-outlined'} />
                 </Link>
               </Grid>
             );

@@ -565,7 +565,8 @@ export default function Controller() {
                                                             <Col>
                                                                 <h4>{sensor.idSensor}</h4>
                                                             </Col>
-                                                            <Col className="d-flex justify-content-end">
+                                                            {element.active=== true?<>
+                                                                <Col className="d-flex justify-content-end">
                                                                 {sensor.idSensor.includes("Relay") && sensor.active === true ? <>
                                                                     <h1>{sensor.schedule}</h1>
                                                                     {console.log(sensor)}
@@ -595,7 +596,8 @@ export default function Controller() {
 
                                                                     />
                                                                 </Form>
-                                                            </Col>
+                                                            </Col></>:<></>}
+                                                            
                                                         </Row>
                                                     </ListGroup.Item>
                                                 </>)

@@ -63,9 +63,10 @@ export default function CurrentContent(id) {
         backgroundColor: '#F2EFDE'
     };
     const childSensor = {
-        width: '25%',
+        width: '30%',
         height: '150px',
         display: 'flex',
+        gap: "30px",
         justifyContent: 'center',
         alignItems: 'center',
     };
@@ -83,10 +84,13 @@ export default function CurrentContent(id) {
             } else {
                 setTemp(res.data.tempValue);
                 setState(res.data.tempValue[0].state)
-                setValueChange(res.data.tempValue[0].changeValue)
+                setValueChange(res.data.tempValue[0].active ===true? res.data.tempValue[0].changeValue:"")
                 setNameValue(`Nhiệt độ ${res.data.tempValue[0].name.split("_")[1]}`);
-                setIndexValue(res.data.tempValue[0].value)
+                setIndexValue(res.data.tempValue[0].active ===true? res.data.tempValue[0].value:"Inactive")
                 setHumi(res.data.humiValue);
+                if(res.data.tempValue[0].active ===true)
+                    setUnit("°C")
+                else setUnit("")
                 setPH(res.data.phValue)
                 setEC(res.data.ecValue)
                 setKali(res.data.kaliValue)
@@ -158,16 +162,17 @@ export default function CurrentContent(id) {
 
 
                 </div>
-                <div className="ortherSensor" style={{ display: 'flex', flexWrap: 'wrap', cursor: 'pointer' }}>
+                <div className="ortherSensor" style={{ display: 'flex', flexWrap: 'wrap', cursor: 'pointer',"columnGap":"85px","rowGap":"10px","backgroundColor":"rgb(242, 239, 222)" }}>
                     {temp.map((element) => {
-                        const color = element.active === false?"grey": element.state === 1 ? "green" : (element.state === -1 ? "red" : "lightgrey  ")
+                        const color = element.active === false?"grey": element.value >=20 && element.value <22 ? "lightblue" : (element.value >=34&& element.value <36 ? "orange" : (element.value >=36?"red":"lightgreen"))
                         return (
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '25%',
+                                    width: '30%',
                                     height: '150px',
                                     display: 'flex',
+                                    gap: "30px",
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -222,14 +227,15 @@ export default function CurrentContent(id) {
                         );
                     })}
                     {humi.map((element) => {
-                         const color = element.active === false?"grey": element.state === 1 ? "green" : (element.state === -1 ? "red" : "lightgrey  ")
+                        const color = element.active === false?"grey": element.value >=60 && element.value <61 ? "lightblue" : (element.value >=63&& element.value <64 ? "orange" : (element.value >=64?"red":"lightgreen"))
                         return (
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '25%',
+                                    width: '30%',
                                     height: '150px',
                                     display: 'flex',
+                                    gap: "30px",
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -286,14 +292,15 @@ export default function CurrentContent(id) {
                         );
                     })}
                     {ph.map((element) => {
-                        const color = element.active === false?"grey": element.state === 1 ? "green" : (element.state === -1 ? "red" : "lightgrey  ")
+                        const color = element.active === false?"grey": element.value >=4 && element.value <5.5 ? "lightblue" : (element.value >=6.7&& element.value <7.5 ? "orange" : (element.value >=7.5?"red":"lightgreen"))
                         return (
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '25%',
+                                    width: '30%',
                                     height: '150px',
                                     display: 'flex',
+                                    gap: "30px",
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -338,14 +345,15 @@ export default function CurrentContent(id) {
                     })}
 
                     {ec.map((element) => {
-                        const color = element.active === false?"grey": element.state === 1 ? "green" : (element.state === -1 ? "red" : "lightgrey  ")
+                        const color = element.active === false?"grey": element.value >=3 && element.value <3.2 ? "lightblue" : (element.value >=4&& element.value <4.7 ? "orange" : (element.value >=4.7?"red":"lightgreen"))
                         return (
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '25%',
+                                    width: '30%',
                                     height: '150px',
                                     display: 'flex',
+                                    gap: "30px",
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -360,7 +368,7 @@ export default function CurrentContent(id) {
                                         viewBox="0 0 16 16"
                                     >
                                         <path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16m0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15" />
-                                    </svg>, element.active === true?"S":"",element.active === true? element.state:"", element.active === true?element.changeValue:"",element.name)
+                                    </svg>, element.active === true?"S/m":"",element.active === true? element.state:"", element.active === true?element.changeValue:"",element.name)
                                 }
                             >
                                 <div>
@@ -381,7 +389,7 @@ export default function CurrentContent(id) {
 
                                     <div style={{ display: "flex", gap: "5px" }}>
                                     <div>{element.active === true? <>
-                                            {element.value} S
+                                            {element.value} S/m
                                             {
                                             element.state === 1 ? <FaArrowUp /> : (element.state === -1 ? <FaArrowDown /> : <></>)
                                             }
@@ -393,14 +401,15 @@ export default function CurrentContent(id) {
                         );
                     })}
                     {kali.map((element) => {
-                        const color = element.active === false?"grey": element.state === 1 ? "green" : (element.state === -1 ? "red" : "lightgrey  ")
+                        const color = element.active === false?"grey": element.value >=15 && element.value <16 ? "lightblue" : (element.value >=18&& element.value <19 ? "orange" : (element.value >=19?"red":"lightgreen"))
                         return (
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '25%',
+                                    width: '30%',
                                     height: '150px',
                                     display: 'flex',
+                                    gap: "30px",
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -430,14 +439,15 @@ export default function CurrentContent(id) {
                         );
                     })}
                     {nito.map((element) => {
-                        const color = element.active === false?"grey": element.state === 1 ? "green" : (element.state === -1 ? "red" : "lightgrey  ")
+                        const color = element.active === false?"grey": element.value >3 && element.value <3.2 ? "lightblue" : (element.value >4.1 && element.value <4.5 ? "orange" : (element.value >=4.5?"red":"lightgreen"))
                         return (
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '25%',
+                                    width: '30%',
                                     height: '150px',
                                     display: 'flex',
+                                    gap: "30px",
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -466,14 +476,15 @@ export default function CurrentContent(id) {
                         );
                     })}
                     {photpho.map((element) => {
-                       const color = element.active === false?"grey": element.state === 1 ? "green" : (element.state === -1 ? "red" : "lightgrey  ")
+                       const color = element.active === false?"grey": element.value >=30 && element.value <35 ? "lightblue" : (element.value >=40&& element.value <47 ? "orange" : (element.value >=47?"red":"lightgreen"))
                         return (
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '25%',
+                                    width: '30%',
                                     height: '150px',
                                     display: 'flex',
+                                    gap: "30px",
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color

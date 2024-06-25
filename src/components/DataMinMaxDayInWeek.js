@@ -15,6 +15,9 @@ export default function DataMinMaxDayInWeek(id) {
     const [year, setYear] = useState(yearNow());
     const [date, setDate] = useState(formatDate());
     const [index, setIndex] = useState(1);
+    const [dataMax, setDataMax] = useState({});
+    const [dataMin, setDataMin] = useState({});
+    // const [maxDetail, setMaxDetail]  = useState({});
     const formatdDte = (e) => {
         if (e != null)
             return `Date:${e.split("T")[0]}, Time${e.split("T")[1]}`
@@ -69,6 +72,8 @@ export default function DataMinMaxDayInWeek(id) {
         const dateArr = date.split("-");
         return `${dateArr[2]}-${dateArr[1]}-${dateArr[0]}`
     }
+    const sensorMaxValues = {};
+    const sensorMinValues = {};
     useEffect(() => {
         const process = async () => {
             setData(null)
@@ -123,7 +128,40 @@ export default function DataMinMaxDayInWeek(id) {
                 setGlobalState('isAuthorized', false);
             } else {
                 setData(res.data)
+                const today = new Date();
+
+
+                // Iterate through the sensor data
+                res.data.sensorMinMaxes.forEach(sensorData => {
+                    const { sensor } = sensorData;
+                    sensorData.data.forEach(record => {
+                        const minRecordValue = parseFloat(record.min);
+                        const maxRecordValue = parseFloat(record.max);
+                        const minRecordDate = new Date(record.minAt);
+                        const maxRecordDate = new Date(record.maxAt);
+
+                        // Update min values
+                        if (record.minAt && minRecordDate <= today) {
+                            if (!sensorMinValues[sensor] || minRecordValue < sensorMinValues[sensor].min) {
+                                const { week, minAt, min } = record;
+                                sensorMinValues[sensor] = { week, minAt, min };
+                            }
+                        }
+                        console.log(record.maxAt !=null && maxRecordDate <= today)
+                        // Update max values
+                        if (record.maxAt && maxRecordDate <= today) {
+                            if (!sensorMaxValues[sensor] || maxRecordValue > sensorMaxValues[sensor].max) {
+                                const { week, maxAt, max } = record;
+                                sensorMaxValues[sensor] = { week, maxAt, max };
+                            }
+                        }
+                    });
+                });
             }
+
+            setDataMax(sensorMaxValues);
+            setDataMin(sensorMinValues);
+            console.log(sensorMinValues)
 
             // Update the previous listener value
 
@@ -183,7 +221,7 @@ export default function DataMinMaxDayInWeek(id) {
                             name="datepic"
                             placeholder="Input month"
                             defaultValue={month}
-                            
+
                         />
                     </Form.Group>
                     <Form.Group controlId="valueYear">
@@ -193,7 +231,7 @@ export default function DataMinMaxDayInWeek(id) {
                             name="datepic"
                             placeholder="Input month"
                             defaultValue={year}
-                            
+
                         />
                     </Form.Group>
                     <Form.Group controlId="valueIndex">
@@ -203,16 +241,48 @@ export default function DataMinMaxDayInWeek(id) {
                             name="datepic"
                             placeholder="Input week"
                             defaultValue={index}
-                            
+
                         />
                     </Form.Group>
-                    
+
                 </div>
                 <button onClick={onsubmit} type="button" className="btn btn-primary">OK</button>
 
 
             </div>
             <br /><br /><br />
+            <br /><br /><br />
+            <div>
+            <h2>Summary</h2>
+            <Table striped bordered hover style={{ marginTop: "50px" }}>
+                <thead>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Min</th>
+                        <th>Min Week</th>
+                        <th>Min At</th>
+                        <th>Max</th>
+                        <th>Max Week</th>
+                        <th>Max At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {console.log(dataMax)}
+                    {Object.keys(dataMax).map(sensor => (
+                        <tr key={sensor}>
+                            <td>{sensor}</td>
+                            <td>{dataMin[sensor]?.min}</td>
+                            <td>{dataMin[sensor]?.week}</td>
+                            <td>{dataMin[sensor]?.minAt}</td>
+                            <td>{dataMax[sensor]?.max}</td>
+                            <td>{dataMax[sensor]?.week}</td>
+                            <td>{dataMax[sensor]?.maxAt}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+            </div>
+
             <h2 className="text-center">Max of all sensors at week {`${index}`} {`${month}/${year}`}</h2>
             <Table striped bordered hover style={{ marginTop: "50px" }}>
                 <thead>
@@ -230,7 +300,7 @@ export default function DataMinMaxDayInWeek(id) {
                                 <td>{element.sensor}</td>
                                 {element.data.reverse().map((el) => {
                                     return (
-                                        <td title={`Data max at: ${formatdDte(el.maxAt)}`}>{el.max}</td>
+                                        <td title={`Data max at: ${formatdDte(el.maxAt)}`}>{el.maxAt? el.max:"no data"}</td>
                                     )
                                 })}
 
@@ -259,7 +329,7 @@ export default function DataMinMaxDayInWeek(id) {
                                 <td>{element.sensor}</td>
                                 {element.data.map((el) => {
                                     return (
-                                        <td title={`Data max at: ${formatdDte(el.minAt)}`}>{el.min}</td>
+                                        <td title={`Data max at: ${formatdDte(el.minAt)}`}>{el.minAt?el.min:"no data"}</td>
                                     )
                                 })}
 

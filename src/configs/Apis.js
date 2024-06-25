@@ -2,7 +2,7 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 
 // const SERVER = 'https://serveriot-0z1m.onrender.com';
-const SERVER = 'https://serveriot-ob37.onrender.com';
+const SERVER = 'https://serveriot-b0kd.onrender.com';
 
 export const endpoints = {
   login: '/authenticate',

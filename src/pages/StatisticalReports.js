@@ -105,7 +105,7 @@ export default function StatisticalReports() {
 
 
         <Container maxWidth="xl">
-            <a href="https://serveriot-ob37.onrender.com/export">
+            <a href="https://serveriot-b0kd.onrender.com/export">
                 <Button variant="contained"  >
                     Export all data
                 </Button>

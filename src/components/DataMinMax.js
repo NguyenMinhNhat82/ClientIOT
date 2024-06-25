@@ -12,6 +12,8 @@ export default function DataMinMax(id) {
     const listener = useGlobalState('message')[0];
     const [data, setData] = useState();
     const [date, setDate] = useState(formatDate());
+    const [dataMax, setDataMax] = useState({});
+    const [dataMin, setDataMin] = useState({});
     const formatdDte = (e) => {
         if (e != null)
             return `Date:${e.split("T")[0]}, Time${e.split("T")[1]}`
@@ -34,6 +36,13 @@ export default function DataMinMax(id) {
         const dateArr = date.split("-");
         return `${dateArr[2]}-${dateArr[1]}-${dateArr[0]}`
     }
+    const now = new Date();
+    const currentDate = now.toISOString().split('T')[0];
+    const currentHour = now.getHours();
+
+    // Initialize objects to track the minimum and maximum values for each sensor
+    const sensorMinValues = {};
+    const sensorMaxValues = {};
     useEffect(() => {
         const process = async () => {
             // Only set data to null if listener has changed
@@ -76,7 +85,7 @@ export default function DataMinMax(id) {
                     setData(null)
                 }
             }
-            console.log(displayDate(date))
+            console.log(date)
             const res = await Apis.post(`${endpoints.allMinMax}/${id.id}`,
                 {
                     "date": `${date}`,
@@ -90,7 +99,34 @@ export default function DataMinMax(id) {
             if (res.data === '') {
                 setGlobalState('isAuthorized', false);
             } else {
+
                 setData(res.data.sensorMinMaxes)
+                res.data.sensorMinMaxes.forEach(sensorData => {
+                    const { sensor } = sensorData;
+                    sensorData.data.forEach(record => {
+                        const recordDate = record.minAt ? record.minAt.split('T')[0] : null;
+                        const recordHour = parseInt(record.hour, 10);
+
+                        if (recordDate === currentDate && recordHour <= currentHour) {
+                            const minRecordValue = parseFloat(record.min);
+                            const maxRecordValue = parseFloat(record.max);
+
+                            // Update min values
+                            if (record.minAt&&(!sensorMinValues[sensor] || minRecordValue < sensorMinValues[sensor].min)) {
+                                const { minAt, min } = record;
+                                sensorMinValues[sensor] = { hour: recordHour, minAt, min };
+                            }
+
+                            // Update max values
+                            if (record.maxAt&&(!sensorMaxValues[sensor] || maxRecordValue > sensorMaxValues[sensor].max)) {
+                                const { maxAt, max } = record;
+                                sensorMaxValues[sensor] = { hour: recordHour, maxAt, max };
+                            }
+                        }
+                    });
+                });
+                setDataMax(sensorMaxValues);
+                setDataMin(sensorMinValues);
             }
 
             // Update the previous listener value
@@ -99,7 +135,7 @@ export default function DataMinMax(id) {
         }
         process();
 
-    }, [listener, id,date]);
+    }, [listener, id, date]);
 
     // Define a ref to store the previous value of listener
     const prevListener = useRef();
@@ -137,6 +173,37 @@ export default function DataMinMax(id) {
                 />
             </div>
             <br /><br /><br />
+            <br /><br /><br />
+            <div>
+      <h2>Summary</h2>
+      <Table striped bordered hover style={{ marginTop: "50px" }}>
+        <thead>
+          <tr>
+            <th>Sensor</th>
+            <th>Min</th>
+            <th>Min Hour</th>
+            <th>Min At</th>
+            <th>Max</th>
+            <th>Max Hour</th>
+            <th>Max At</th>
+          </tr>
+        </thead>
+        <tbody>
+            {console.log(dataMax)}
+          {Object.keys(dataMax).map(sensor => (
+            <tr key={sensor}>
+              <td>{sensor}</td>
+              <td>{dataMin[sensor]?.min}</td>
+              <td>{dataMin[sensor]?.hour}</td>
+              <td>{dataMin[sensor]?.minAt}</td>
+              <td>{dataMax[sensor]?.max}</td>
+              <td>{dataMax[sensor]?.hour}</td>
+              <td>{dataMax[sensor]?.maxAt}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
             <h2 className="text-center">Max of all sensors at {displayDate(date)}</h2>
             <Table striped bordered hover style={{ marginTop: "50px" }}>
                 <thead>

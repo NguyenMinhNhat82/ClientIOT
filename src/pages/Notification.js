@@ -200,7 +200,7 @@ export default function Notification() {
         color = 'red';
         break;
       default:
-        color = 'black'; // Default color if state does not match any case
+        color = 'red'; // Default color if state does not match any case
         break;
     }
 

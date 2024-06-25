@@ -14,6 +14,8 @@ export default function DataMinMaxWeekInMonth(id) {
     const [month, setMonth] = useState(monthNow());
     const [year, setYear] = useState(yearNow());
     const [date, setDate] = useState(formatDate());
+    const [dataMax, setDataMax] = useState({});
+    const [dataMin, setDataMin] = useState({});
     const formatdDte = (e) => {
         if (e != null)
             return `Date:${e.split("T")[0]}, Time${e.split("T")[1]}`
@@ -61,6 +63,8 @@ export default function DataMinMaxWeekInMonth(id) {
 
         return month;
     }
+    const sensorMinValues = {};
+    const sensorMaxValues = {};
 
     const displayDate = (date) => {
         const dateArr = date.split("-");
@@ -120,7 +124,39 @@ export default function DataMinMaxWeekInMonth(id) {
                 setGlobalState('isAuthorized', false);
             } else {
                 setData(res.data)
+                const today = new Date();
+                const currentWeek = Math.ceil(today.getDate() / 7);
+
+                // Initialize objects to track the minimum and maximum values for each sensor
+
+
+                // Iterate through the sensor data
+                res.data.sensorMinMaxes.forEach(sensorData => {
+                    const { sensor } = sensorData;
+                    sensorData.data.forEach(record => {
+                        const week = parseInt(record.week, 10);
+
+                        if (week <= currentWeek) {
+                            const minRecordValue = parseFloat(record.min);
+                            const maxRecordValue = parseFloat(record.max);
+
+                            // Update min values
+                            if (record.minAt && (!sensorMinValues[sensor] || minRecordValue < sensorMinValues[sensor].min)) {
+                                const { minAt, min } = record;
+                                sensorMinValues[sensor] = { week, minAt, min };
+                            }
+
+                            // Update max values
+                            if (record.maxAt && (!sensorMaxValues[sensor] || maxRecordValue > sensorMaxValues[sensor].max)) {
+                                const { maxAt, max } = record;
+                                sensorMaxValues[sensor] = { week, maxAt, max };
+                            }
+                        }
+                    });
+                });
             }
+            setDataMax(sensorMaxValues);
+            setDataMin(sensorMinValues);
 
             // Update the previous listener value
 
@@ -157,6 +193,7 @@ export default function DataMinMaxWeekInMonth(id) {
     }
     console.log(thElements)
     return (<>
+        {console.log(dataMin)}
         <div>
             {/* <h2>Max of all sensor in {date}</h2> */}
 
@@ -192,7 +229,7 @@ export default function DataMinMaxWeekInMonth(id) {
 
                         />
                     </Form.Group>
-                   
+
 
                 </div>
                 <button onClick={onsubmit} type="button" className="btn btn-primary">OK</button>
@@ -200,6 +237,36 @@ export default function DataMinMaxWeekInMonth(id) {
 
             </div>
             <br /><br /><br />
+            <br /><br /><br />
+            <div>
+                <h2>Summary</h2>
+                <Table striped bordered hover style={{ marginTop: "50px" }}>
+                    <thead>
+                        <tr>
+                            <th>Sensor</th>
+                            <th>Min</th>
+                            <th>Min Week</th>
+                            <th>Min At</th>
+                            <th>Max</th>
+                            <th>Max Week</th>
+                            <th>Max At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Object.keys(dataMax).map(sensor => (
+                            <tr key={sensor}>
+                                <td>{sensor}</td>
+                                <td>{dataMin[sensor]?.min}</td>
+                                <td>{dataMin[sensor]?.week}</td>
+                                <td>{dataMin[sensor]?.minAt}</td>
+                                <td>{dataMax[sensor]?.max}</td>
+                                <td>{dataMax[sensor]?.week}</td>
+                                <td>{dataMax[sensor]?.maxAt}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
             <h2 className="text-center">Max of all sensors at {`${month}/${year}`}</h2>
             <Table striped bordered hover style={{ marginTop: "50px" }}>
                 <thead>
