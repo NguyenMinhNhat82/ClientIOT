@@ -162,7 +162,7 @@ export default function CurrentContent(id) {
 
 
                 </div>
-                <div className="ortherSensor" style={{ display: 'flex', flexWrap: 'wrap', cursor: 'pointer',"columnGap":"85px","rowGap":"10px","backgroundColor":"rgb(242, 239, 222)" }}>
+                <div className="ortherSensor" style={{ display: 'flex', flexWrap: 'wrap', cursor: 'pointer',"backgroundColor":"rgb(242, 239, 222)" }}>
                     {temp.map((element) => {
                         const color = element.active === false?"grey": element.value >=20 && element.value <22 ? "lightblue" : (element.value >=34&& element.value <36 ? "orange" : (element.value >=36?"red":"lightgreen"))
                         return (
