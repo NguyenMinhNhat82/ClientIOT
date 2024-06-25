@@ -63,10 +63,10 @@ export default function CurrentContent(id) {
         backgroundColor: '#F2EFDE'
     };
     const childSensor = {
-        width: '30%',
+        width: '33%',
         height: '150px',
         display: 'flex',
-        gap: "30px",
+        
         justifyContent: 'center',
         alignItems: 'center',
     };
@@ -169,10 +169,10 @@ export default function CurrentContent(id) {
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '30%',
+                                    width: '33%',
                                     height: '150px',
                                     display: 'flex',
-                                    gap: "30px",
+                                
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -232,10 +232,10 @@ export default function CurrentContent(id) {
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '30%',
+                                    width: '33%',
                                     height: '150px',
                                     display: 'flex',
-                                    gap: "30px",
+                                    
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -297,10 +297,10 @@ export default function CurrentContent(id) {
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '30%',
+                                    width: '33%',
                                     height: '150px',
                                     display: 'flex',
-                                    gap: "30px",
+                                    
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -350,10 +350,10 @@ export default function CurrentContent(id) {
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '30%',
+                                    width: '33%',
                                     height: '150px',
                                     display: 'flex',
-                                    gap: "30px",
+                                    
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -406,10 +406,10 @@ export default function CurrentContent(id) {
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '30%',
+                                    width: '33%',
                                     height: '150px',
                                     display: 'flex',
-                                    gap: "30px",
+                                    
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -444,10 +444,10 @@ export default function CurrentContent(id) {
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '30%',
+                                    width: '33%',
                                     height: '150px',
                                     display: 'flex',
-                                    gap: "30px",
+                                
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
@@ -481,10 +481,10 @@ export default function CurrentContent(id) {
                             <button
                                 className="childSensor"
                                 style={{
-                                    width: '30%',
+                                    width: '33%',
                                     height: '150px',
                                     display: 'flex',
-                                    gap: "30px",
+                                    
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: color
