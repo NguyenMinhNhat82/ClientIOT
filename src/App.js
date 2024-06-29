@@ -50,7 +50,7 @@ export default function App() {
   React.useEffect(() => {
     // http://localhost:9000
     // https://serveriot-0z1m.onrender.com
-    const Sock = new SockJS('https://serveriot-mvxq.onrender.com/ws');
+    const Sock = new SockJS('hhttps://serveriot-i4o4.onrender.com/ws');
     stompClient = over(Sock);
     stompClient.connect({}, () => {
       stompClient.subscribe('/user/client/private', onPrivateMessage);
