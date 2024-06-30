@@ -71,8 +71,8 @@ export default function MinMax(id) {
         setSensorID(id.id);
         
         const loadData = async () => {
-            setAverage(null)
-            setMinMax(null)
+            // setAverage(null)
+            // setMinMax(null)
             const resSensor = await Apis.get(`${endpoints.listSensor}/${id.id}`, {
                 headers: {
                     Authorization: `Bearer ${cookie.load('token')}`,

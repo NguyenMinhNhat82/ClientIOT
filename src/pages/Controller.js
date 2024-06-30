@@ -536,7 +536,7 @@ export default function Controller() {
                                         <h3>{element.nameStation}</h3>
                                     </Col>
                                     <Col className="d-flex justify-content-end">
-                                        <Button id={`btn_${element.idStation}`} onClick={() => showSensor(`${element.idStation}`)}>Show</Button>
+                                        {/* <Button id={`btn_${element.idStation}`} onClick={() => showSensor(`${element.idStation}`)}>Show</Button> */}
                                         <Form>
                                             <Form.Check // prettier-ignore
                                                 type="switch"
@@ -553,7 +553,7 @@ export default function Controller() {
                                 </Row>
 
 
-                                <div id={element.idStation} style={{ "display": "none" }}>
+                                <div id={element.idStation} >
                                     <br /><br />
                                     <h3>Danh sách các cảm biến:</h3>
                                     <ListGroup style={{ "margin-left": "100px", "border": "0.5px solid lightgrey" }}>
