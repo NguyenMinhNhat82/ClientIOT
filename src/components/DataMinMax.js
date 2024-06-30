@@ -103,11 +103,12 @@ export default function DataMinMax(id) {
                 setData(res.data.sensorMinMaxes)
                 res.data.sensorMinMaxes.forEach(sensorData => {
                     const { sensor } = sensorData;
+                   
                     sensorData.data.forEach(record => {
                         const recordDate = record.minAt ? record.minAt.split('T')[0] : null;
                         const recordHour = parseInt(record.hour, 10);
-
-                        if (recordDate === currentDate && recordHour <= currentHour) {
+                        console.log(recordDate === currentDate && recordHour <= currentHour)
+                        
                             const minRecordValue = parseFloat(record.min);
                             const maxRecordValue = parseFloat(record.max);
 
@@ -123,10 +124,11 @@ export default function DataMinMax(id) {
                                 sensorMaxValues[sensor] = { hour: recordHour, maxAt, max };
                             }
                         }
-                    });
+                    );
                 });
                 setDataMax(sensorMaxValues);
                 setDataMin(sensorMinValues);
+                console.log(res.data.sensorMinMaxes)
             }
 
             // Update the previous listener value
